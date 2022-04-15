@@ -9,6 +9,8 @@ import org.hibernate.dialect.function.SQLFunctionTemplate;
 import org.hibernate.dialect.function.VarArgsSQLFunction;
 import org.hibernate.type.StringType;
 
+import javax.validation.constraints.NotNull;
+
 public class SQLDialect extends Dialect {
     public SQLDialect() {
         registerColumnType(Types.BIT, "integer");
@@ -48,8 +50,8 @@ public class SQLDialect extends Dialect {
         return true;
     }
 
-    protected String getLimitString(String query, boolean hasOffset) {
-        return new StringBuffer(query.length() + 20).append(query).append(hasOffset ? " limit ? offset ?" : " limit ?").toString();
+    protected String getLimitString(@NotNull String query, boolean hasOffset) {
+        return query + (hasOffset ? " limit ? offset ?" : " limit ?");
     }
 
     public boolean supportsTemporaryTables() {
@@ -81,7 +83,7 @@ public class SQLDialect extends Dialect {
     }
 
     public boolean hasAlterTable() {
-        return false; // As specify in NHibernate dialect
+        return false;
     }
 
     public boolean dropConstraints() {

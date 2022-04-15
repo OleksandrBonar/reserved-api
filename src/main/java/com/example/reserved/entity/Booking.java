@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Table(name = "bookings")
 public class Booking {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne
@@ -40,7 +40,21 @@ public class Booking {
     }
 
     public Booking(
-            Long id,
+            Person person,
+            Desk desk,
+            LocalDateTime reservedAt,
+            LocalDateTime reservedFrom,
+            LocalDateTime reservedTo
+    ) {
+        this.person = person;
+        this.desk = desk;
+        this.restaurant = desk.getRestaurant();
+        this.reservedAt = reservedAt;
+        this.reservedFrom = reservedFrom;
+        this.reservedTo = reservedTo;
+    }
+
+    public Booking(
             Person person,
             Desk desk,
             Restaurant restaurant,
@@ -48,7 +62,10 @@ public class Booking {
             LocalDateTime reservedFrom,
             LocalDateTime reservedTo
     ) {
-        this.id = id;
+        if (!desk.getRestaurant().equals(restaurant)) {
+            throw new IllegalArgumentException("The restaurant desk is not equal to the restaurant");
+        }
+
         this.person = person;
         this.desk = desk;
         this.restaurant = restaurant;

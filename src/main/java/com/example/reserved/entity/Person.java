@@ -9,7 +9,7 @@ import java.util.List;
 @Table(name = "persons")
 public class Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "first_name", nullable = false)
@@ -32,8 +32,7 @@ public class Person {
     public Person() {
     }
 
-    public Person(Long id, String firstName, String lastName, String phone) {
-        this.id = id;
+    public Person(String firstName, String lastName, String phone) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;

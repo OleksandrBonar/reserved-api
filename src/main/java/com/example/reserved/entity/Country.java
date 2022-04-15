@@ -9,7 +9,7 @@ import java.util.List;
 @Table(name = "countries")
 public class Country {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "name", nullable = false)
@@ -26,8 +26,7 @@ public class Country {
     public Country() {
     }
 
-    public Country(Long id, String name) {
-        this.id = id;
+    public Country(String name) {
         this.name = name;
     }
 

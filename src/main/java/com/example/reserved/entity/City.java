@@ -9,7 +9,7 @@ import java.util.List;
 @Table(name = "cities")
 public class City {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "name", nullable = false)
@@ -31,8 +31,17 @@ public class City {
     public City() {
     }
 
-    public City(Long id, String name, State state, Country country) {
-        this.id = id;
+    public City(String name, State state) {
+        this.name = name;
+        this.state = state;
+        this.country = state.getCountry();
+    }
+
+    public City(String name, State state, Country country) {
+        if (!state.getCountry().equals(country)) {
+            throw new IllegalArgumentException("The country state is not equal to the country");
+        }
+
         this.name = name;
         this.state = state;
         this.country = country;
