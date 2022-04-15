@@ -9,7 +9,7 @@ import java.util.List;
 @Table(name = "addresses")
 public class Address {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "line1", nullable = false)
@@ -30,15 +30,13 @@ public class Address {
     public Address() {
     }
 
-    public Address(Long id, String line1, City city) {
-        this.id = id;
+    public Address(String line1, City city) {
         this.line1 = line1;
         this.line2 = "";
         this.city = city;
     }
 
-    public Address(Long id, String line1, String line2, City city) {
-        this.id = id;
+    public Address(String line1, String line2, City city) {
         this.line1 = line1;
         this.line2 = line2;
         this.city = city;

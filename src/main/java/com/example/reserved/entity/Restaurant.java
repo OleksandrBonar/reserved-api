@@ -9,7 +9,7 @@ import java.util.List;
 @Table(name = "restaurants")
 public class Restaurant {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "name", nullable = false)
@@ -30,8 +30,7 @@ public class Restaurant {
     public Restaurant() {
     }
 
-    public Restaurant(Long id, String name, Address address) {
-        this.id = id;
+    public Restaurant(String name, Address address) {
         this.name = name;
         this.address = address;
     }

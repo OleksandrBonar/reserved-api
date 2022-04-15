@@ -7,7 +7,7 @@ import java.util.List;
 @Table(name = "desks")
 public class Desk {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "num_chairs", nullable = false)
@@ -23,8 +23,7 @@ public class Desk {
     public Desk() {
     }
 
-    public Desk(Long id, Integer numChairs, Restaurant restaurant) {
-        this.id = id;
+    public Desk(Integer numChairs, Restaurant restaurant) {
         this.numChairs = numChairs;
         this.restaurant = restaurant;
     }
