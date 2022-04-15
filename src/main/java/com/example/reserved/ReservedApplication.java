@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 
 @SpringBootApplication
 public class ReservedApplication implements RepositoryRestConfigurer {
-
     public static void main(String[] args) {
         SpringApplication.run(ReservedApplication.class, args);
     }
