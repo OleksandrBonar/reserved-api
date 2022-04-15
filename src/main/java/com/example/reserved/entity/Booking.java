@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Table(name = "bookings")
 public class Booking {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -24,26 +25,28 @@ public class Booking {
     private Restaurant restaurant;
 
     @Column(name = "reserved_at")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime reservedAt;
 
     @Column(name = "reserved_from")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime reservedFrom;
 
     @Column(name = "reserved_to")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime reservedTo;
 
-    public Booking() {}
+    public Booking() {
+    }
+
     public Booking(
-        Long id,
-        Person person,
-        Desk desk,
-        Restaurant restaurant,
-        LocalDateTime reservedAt,
-        LocalDateTime reservedFrom,
-        LocalDateTime reservedTo
+            Long id,
+            Person person,
+            Desk desk,
+            Restaurant restaurant,
+            LocalDateTime reservedAt,
+            LocalDateTime reservedFrom,
+            LocalDateTime reservedTo
     ) {
         this.id = id;
         this.person = person;
@@ -54,24 +57,59 @@ public class Booking {
         this.reservedTo = reservedTo;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public Person getPerson() { return person; }
-    public void setPerson(Person person) { this.person = person; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Desk getDesk() { return desk; }
-    public void setDesk(Desk desk) { this.desk = desk; }
+    public Person getPerson() {
+        return person;
+    }
 
-    public Restaurant getRestaurant() { return restaurant; }
-    public void setRestaurant(Restaurant restaurant) { this.restaurant = restaurant; }
+    public void setPerson(Person person) {
+        this.person = person;
+    }
 
-    public LocalDateTime getReservedAt() { return reservedAt; }
-    public void setReservedAt(LocalDateTime reservedAt) { this.reservedAt = reservedAt; }
+    public Desk getDesk() {
+        return desk;
+    }
 
-    public LocalDateTime getReservedFrom() { return reservedFrom; }
-    public void setReservedFrom(LocalDateTime reservedFrom) { this.reservedFrom = reservedFrom; }
+    public void setDesk(Desk desk) {
+        this.desk = desk;
+    }
 
-    public LocalDateTime getReservedTo() { return reservedTo; }
-    public void setReservedTo(LocalDateTime reservedTo) { this.reservedTo = reservedTo; }
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    public LocalDateTime getReservedAt() {
+        return reservedAt;
+    }
+
+    public void setReservedAt(LocalDateTime reservedAt) {
+        this.reservedAt = reservedAt;
+    }
+
+    public LocalDateTime getReservedFrom() {
+        return reservedFrom;
+    }
+
+    public void setReservedFrom(LocalDateTime reservedFrom) {
+        this.reservedFrom = reservedFrom;
+    }
+
+    public LocalDateTime getReservedTo() {
+        return reservedTo;
+    }
+
+    public void setReservedTo(LocalDateTime reservedTo) {
+        this.reservedTo = reservedTo;
+    }
 }

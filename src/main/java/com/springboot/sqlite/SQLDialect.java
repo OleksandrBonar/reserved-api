@@ -3,10 +3,10 @@ package com.springboot.sqlite;
 import java.sql.Types;
 
 import org.hibernate.dialect.Dialect;
+import org.hibernate.dialect.identity.IdentityColumnSupport;
 import org.hibernate.dialect.function.StandardSQLFunction;
 import org.hibernate.dialect.function.SQLFunctionTemplate;
 import org.hibernate.dialect.function.VarArgsSQLFunction;
-import org.hibernate.Hibernate;
 import org.hibernate.type.StringType;
 
 public class SQLDialect extends Dialect {
@@ -30,7 +30,6 @@ public class SQLDialect extends Dialect {
         registerColumnType(Types.BINARY, "blob");
         registerColumnType(Types.VARBINARY, "blob");
         registerColumnType(Types.LONGVARBINARY, "blob");
-        // registerColumnType(Types.NULL, "null");
         registerColumnType(Types.BLOB, "blob");
         registerColumnType(Types.CLOB, "clob");
         registerColumnType(Types.BOOLEAN, "integer");
@@ -41,21 +40,8 @@ public class SQLDialect extends Dialect {
         registerFunction("substring", new StandardSQLFunction("substr", StringType.INSTANCE));
     }
 
-    public boolean supportsIdentityColumns() {
-        return true;
-    }
-
-    public boolean hasDataTypeInIdentityColumn() {
-        return false; // As specify in NHibernate dialect
-    }
-
-    public String getIdentityColumnString() {
-        // return "integer primary key autoincrement";
-        return "integer";
-    }
-
-    public String getIdentitySelectString() {
-        return "select last_insert_rowid()";
+    public IdentityColumnSupport getIdentityColumnSupport() {
+        return new SQLiteIdentityColumnSupport();
     }
 
     public boolean supportsLimit() {
@@ -63,8 +49,7 @@ public class SQLDialect extends Dialect {
     }
 
     protected String getLimitString(String query, boolean hasOffset) {
-        return new StringBuffer(query.length() + 20).append(query).append(hasOffset ? " limit ? offset ?" : " limit ?")
-                .toString();
+        return new StringBuffer(query.length() + 20).append(query).append(hasOffset ? " limit ? offset ?" : " limit ?").toString();
     }
 
     public boolean supportsTemporaryTables() {
@@ -119,8 +104,7 @@ public class SQLDialect extends Dialect {
         throw new UnsupportedOperationException("No drop foreign key syntax supported by SQLiteDialect");
     }
 
-    public String getAddForeignKeyConstraintString(String constraintName, String[] foreignKey, String referencedTable,
-                                                   String[] primaryKey, boolean referencesPrimaryKey) {
+    public String getAddForeignKeyConstraintString(String constraintName, String[] foreignKey, String referencedTable, String[] primaryKey, boolean referencesPrimaryKey) {
         throw new UnsupportedOperationException("No add foreign key syntax supported by SQLiteDialect");
     }
 

@@ -7,6 +7,7 @@ import java.util.List;
 @Table(name = "desks")
 public class Desk {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "num_chairs", nullable = false)
@@ -19,19 +20,36 @@ public class Desk {
     @OneToMany(mappedBy = "desk", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Booking> bookings;
 
-    public Desk() {}
+    public Desk() {
+    }
+
     public Desk(Long id, Integer numChairs, Restaurant restaurant) {
         this.id = id;
         this.numChairs = numChairs;
         this.restaurant = restaurant;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public Integer getNumChairs() { return numChairs; }
-    public void setNumChairs(Integer num_chairs) { this.numChairs = num_chairs; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Restaurant getRestaurant() { return restaurant; }
-    public void setRestaurant(Restaurant restaurant) { this.restaurant = restaurant; }
+    public Integer getNumChairs() {
+        return numChairs;
+    }
+
+    public void setNumChairs(Integer num_chairs) {
+        this.numChairs = num_chairs;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
 }

@@ -9,6 +9,7 @@ import java.util.List;
 @Table(name = "persons")
 public class Person {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "first_name", nullable = false)
@@ -28,7 +29,9 @@ public class Person {
     @OneToMany(mappedBy = "person", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Booking> bookings;
 
-    public Person() {}
+    public Person() {
+    }
+
     public Person(Long id, String firstName, String lastName, String phone) {
         this.id = id;
         this.firstName = firstName;
@@ -36,18 +39,43 @@ public class Person {
         this.phone = phone;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getFirstName() { return firstName; }
-    public void setFirstName(String firstName) { this.firstName = firstName; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getLastName() { return lastName; }
-    public void setLastName(String lastName) { this.lastName = lastName; }
+    public String getFirstName() {
+        return firstName;
+    }
 
-    public String getPhone() { return phone; }
-    public void setPhone(String phone) { this.phone = phone; }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-    public List<Booking> getBookings() { return bookings; }
-    public void setBookings(List<Booking> bookings) { this.bookings = bookings; }
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
 }

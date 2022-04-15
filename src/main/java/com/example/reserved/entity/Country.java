@@ -9,6 +9,7 @@ import java.util.List;
 @Table(name = "countries")
 public class Country {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name", nullable = false)
@@ -22,21 +23,43 @@ public class Country {
     @OneToMany(mappedBy = "country", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<City> cities;
 
-    public Country() {}
+    public Country() {
+    }
+
     public Country(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public List<State> getStates() { return states; }
-    public void setStates(List<State> states) { this.states = states; }
+    public String getName() {
+        return name;
+    }
 
-    public List<City> getCities() { return cities; }
-    public void setCities(List<City> cities) { this.cities = cities; }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<State> getStates() {
+        return states;
+    }
+
+    public void setStates(List<State> states) {
+        this.states = states;
+    }
+
+    public List<City> getCities() {
+        return cities;
+    }
+
+    public void setCities(List<City> cities) {
+        this.cities = cities;
+    }
 }
