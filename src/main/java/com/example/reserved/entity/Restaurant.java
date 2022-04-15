@@ -9,6 +9,7 @@ import java.util.List;
 @Table(name = "restaurants")
 public class Restaurant {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name", nullable = false)
@@ -26,25 +27,52 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Booking> bookings;
 
-    public Restaurant() {}
+    public Restaurant() {
+    }
+
     public Restaurant(Long id, String name, Address address) {
         this.id = id;
         this.name = name;
         this.address = address;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Address getAddress() { return address; }
-    public void setAddress(Address address) { this.address = address; }
+    public String getName() {
+        return name;
+    }
 
-    public List<Desk> getDesks() { return desks; }
-    public void setDesks(List<Desk> desks) { this.desks = desks; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public List<Booking> getBookings() { return bookings; }
-    public void setBookings(List<Booking> bookings) { this.bookings = bookings; }
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public List<Desk> getDesks() {
+        return desks;
+    }
+
+    public void setDesks(List<Desk> desks) {
+        this.desks = desks;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
 }

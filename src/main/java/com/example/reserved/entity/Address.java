@@ -9,6 +9,7 @@ import java.util.List;
 @Table(name = "addresses")
 public class Address {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "line1", nullable = false)
@@ -26,7 +27,9 @@ public class Address {
     @OneToMany(mappedBy = "address", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Restaurant> restaurants;
 
-    public Address() {}
+    public Address() {
+    }
+
     public Address(Long id, String line1, City city) {
         this.id = id;
         this.line1 = line1;
@@ -41,18 +44,43 @@ public class Address {
         this.city = city;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getLine1() { return line1; }
-    public void setLine1(String line1) { this.line1 = line1; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getLine2() { return line2; }
-    public void setLine2(String line2) { this.line2 = line2; }
+    public String getLine1() {
+        return line1;
+    }
 
-    public City getCity() { return city; }
-    public void setCity(City city) { this.city = city; }
+    public void setLine1(String line1) {
+        this.line1 = line1;
+    }
 
-    public List<Restaurant> getRestaurants() { return restaurants; }
-    public void setRestaurants(List<Restaurant> restaurants) { this.restaurants = restaurants; }
+    public String getLine2() {
+        return line2;
+    }
+
+    public void setLine2(String line2) {
+        this.line2 = line2;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public List<Restaurant> getRestaurants() {
+        return restaurants;
+    }
+
+    public void setRestaurants(List<Restaurant> restaurants) {
+        this.restaurants = restaurants;
+    }
 }
