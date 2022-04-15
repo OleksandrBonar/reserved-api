@@ -46,52 +46,57 @@ public class ReservedApplication implements RepositoryRestConfigurer {
     ) {
         return args -> {
             // create and save addresses
-            countryRepository.save(new Country(1L, "Ukraine"));
+            Country ukraine = countryRepository.save(new Country("Ukraine"));
 
-            stateRepository.save(new State(1L, "Kyivska", countryRepository.findById(1L).get()));
+            State kyivska = stateRepository.save(new State("Kyivska", ukraine));
 
-            cityRepository.save(new City(1L, "Kyiv", stateRepository.findById(1L).get(), countryRepository.findById(1L).get()));
-            cityRepository.save(new City(2L, "Brovary", stateRepository.findById(1L).get(), countryRepository.findById(1L).get()));
+            City kyiv = cityRepository.save(new City("Kyiv", kyivska));
+            City brovary = cityRepository.save(new City("Brovary", kyivska));
 
-            addressRepository.save(new Address(1L, "2, Nezalezhnosti Blvd.", cityRepository.findById(2L).get()));
-            addressRepository.save(new Address(2L, "16, Nezalezhnosti Blvd.", cityRepository.findById(2L).get()));
-            addressRepository.save(new Address(3L, "17, Nezalezhnosti Blvd.", cityRepository.findById(2L).get()));
-            addressRepository.save(new Address(4L, "257, Kyivska St.", cityRepository.findById(2L).get()));
-            addressRepository.save(new Address(5L, "265, Kyivska St.", cityRepository.findById(2L).get()));
-            addressRepository.save(new Address(6L, "314, Kyivska St.", cityRepository.findById(2L).get()));
-            addressRepository.save(new Address(7L, "28B, Haharina St.", "", cityRepository.findById(2L).get()));
-            addressRepository.save(new Address(8L, "3, Heroiv UPA St.", "", cityRepository.findById(2L).get()));
+            Address addr1 = addressRepository.save(new Address("2, Nezalezhnosti Blvd.", brovary));
+            Address addr2 = addressRepository.save(new Address("16, Nezalezhnosti Blvd.", brovary));
+            Address addr3 = addressRepository.save(new Address("17, Nezalezhnosti Blvd.", brovary));
+            Address addr4 = addressRepository.save(new Address("257, Kyivska St.", brovary));
+            Address addr5 = addressRepository.save(new Address("265, Kyivska St.", brovary));
+            Address addr6 = addressRepository.save(new Address("314, Kyivska St.", brovary));
+            Address addr7 = addressRepository.save(new Address("28B, Haharina St.", brovary));
+            Address addr8 = addressRepository.save(new Address("3, Heroiv UPA St.", brovary));
 
             // create and save new restaurants
-            restaurantRepository.save(new Restaurant(1L, "Meat. Fish. Two Knives", addressRepository.findById(5L).get()));
-            restaurantRepository.save(new Restaurant(2L, "Sous Cafe", addressRepository.findById(3L).get()));
-            restaurantRepository.save(new Restaurant(3L, "Shtrudel", addressRepository.findById(1L).get()));
-            restaurantRepository.save(new Restaurant(4L, "UNO Pizza&Grill", addressRepository.findById(4L).get()));
-            restaurantRepository.save(new Restaurant(5L, "Brovar-Khof", addressRepository.findById(6L).get()));
-            restaurantRepository.save(new Restaurant(6L, "La`Terrassa Cafe", addressRepository.findById(2L).get()));
-            restaurantRepository.save(new Restaurant(7L, "Charivna Taistra", addressRepository.findById(7L).get()));
-            restaurantRepository.save(new Restaurant(8L, "Santorin", addressRepository.findById(8L).get()));
+            Restaurant rest1 = restaurantRepository.save(new Restaurant("Meat. Fish. Two Knives", addr5));
+            Restaurant rest2 = restaurantRepository.save(new Restaurant("Sous Cafe", addr3));
+            Restaurant rest3 = restaurantRepository.save(new Restaurant("Shtrudel", addr1));
+            Restaurant rest4 = restaurantRepository.save(new Restaurant("UNO Pizza&Grill", addr4));
+            Restaurant rest5 = restaurantRepository.save(new Restaurant("Brovar-Khof", addr6));
+            Restaurant rest6 = restaurantRepository.save(new Restaurant("La`Terrassa Cafe", addr2));
+            Restaurant rest7 = restaurantRepository.save(new Restaurant("Charivna Taistra", addr7));
+            Restaurant rest8 = restaurantRepository.save(new Restaurant("Santorin", addr8));
 
             // create and save new desks
-            deskRepository.save(new Desk(1L, 4, restaurantRepository.findById(2L).get()));
-            deskRepository.save(new Desk(2L, 4, restaurantRepository.findById(2L).get()));
-            deskRepository.save(new Desk(3L, 4, restaurantRepository.findById(2L).get()));
-            deskRepository.save(new Desk(4L, 4, restaurantRepository.findById(2L).get()));
-            deskRepository.save(new Desk(5L, 4, restaurantRepository.findById(2L).get()));
+            Desk desk1 = deskRepository.save(new Desk(4, rest2));
+            Desk desk2 = deskRepository.save(new Desk(4, rest2));
+            Desk desk3 = deskRepository.save(new Desk(4, rest2));
+            Desk desk4 = deskRepository.save(new Desk(4, rest2));
+            Desk desk5 = deskRepository.save(new Desk(4, rest2));
 
             // create and save new persons
-            personRepository.save(new Person(1L, "James", "Doe", "+1234567890"));
-            personRepository.save(new Person(2L, "Judy", "Doe", "+1234567891"));
+            Person jamesDoe = personRepository.save(new Person("James", "Doe", "+1234567890"));
+            Person judyDoe = personRepository.save(new Person("Judy", "Doe", "+1234567891"));
 
             // create and save new bookings
-            bookingRepository.save(new Booking(
-                    1L,
-                    personRepository.findById(1L).get(),
-                    deskRepository.findByRestaurantId(2L).get(0),
-                    restaurantRepository.findById(2L).get(),
-                    LocalDateTime.parse("2007-12-03T10:15:30"),
-                    LocalDateTime.parse("2007-12-03T10:15:30"),
-                    LocalDateTime.parse("2007-12-03T10:15:30")
+            Booking bkg1 = bookingRepository.save(new Booking(
+                    jamesDoe,
+                    desk1,
+                    LocalDateTime.parse("2007-12-02T10:15:30"),
+                    LocalDateTime.parse("2007-12-03T10:00:00"),
+                    LocalDateTime.parse("2007-12-03T14:00:00")
+            ));
+            Booking bkg2 = bookingRepository.save(new Booking(
+                    jamesDoe,
+                    desk2,
+                    LocalDateTime.parse("2007-12-02T10:15:30"),
+                    LocalDateTime.parse("2007-12-03T10:00:00"),
+                    LocalDateTime.parse("2007-12-03T14:00:00")
             ));
         };
     }
